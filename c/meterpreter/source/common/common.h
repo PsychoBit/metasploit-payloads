@@ -15,18 +15,16 @@
 #define SAFE_FREE(x) {free(x); x = NULL;}
 #define rand_xor_key() ((((rand() % 254) + 1) << 0) | (((rand() % 254) + 1) << 8) | (((rand() % 254) + 1) << 16) | (((rand() % 254) + 1) << 24))
 
-#ifdef _WIN32
-	#include <winsock2.h>
-	#include <windows.h>
+#include <winsock2.h>
+#include <windows.h>
 
-	typedef DWORD __u32;
-	typedef struct ___u128 {
-		__u32 a1;
-		__u32 a2;
-		__u32 a3;
-		__u32 a4;
-	}__u128;
-#endif
+typedef DWORD __u32;
+typedef struct ___u128 {
+	__u32 a1;
+	__u32 a2;
+	__u32 a3;
+	__u32 a4;
+}__u128;
 
 /*
  * Avoid conflicts with Windows crypto API defines
@@ -180,8 +178,6 @@ void real_dprintf(char *filename, int line, const char *function, char *format, 
 /*! @brief Indication that the Meterpreter transport is using HTTPS. */
 #define METERPRETER_TRANSPORT_HTTPS 2
 
-#ifdef _WIN32
-
 VOID sleep(DWORD seconds);
 
 #ifdef DEBUGTRACE
@@ -227,8 +223,6 @@ static _inline void real_dprintf(char *format, ...)
 	strcat_s(buffer, sizeof(buffer), "\r\n");
 	OutputDebugStringA(buffer);
 }
-
-#endif
 
 #endif
 
